@@ -492,29 +492,9 @@ CancelTip()
 }
 
 
-
-
-
-quit(ShowExitTip:=false)
-{
-    if (ShowExitTip)
-    {
-        ShowTip("Exit !")
-        sleep 400
-    }
-    Menu, Tray, NoIcon 
-    ; process, exist, KeyboardGeek.exe
-    ; if (errorlevel > 0)
-    ;     process, close, %errorlevel%
-    ; process, close, ahk.exe
-    myExit()
-    exitapp
-}
-
-
 IsBrowser(pname)
 {
-    if pname in chrome.exe,MicrosoftEdge.exe,firefox.exe,360se.exe,opera.exe,iexplore.exe,qqbrowser.exe,sogouexplorer.exe
+    if pname in chrome.exe,MicrosoftEdge.exe,firefox.exe,360se.exe,opera.exe,iexplore.exe,qqbrowser.exe,sogouexplorer.exe,msedge.exe
         return true
 }
 
@@ -841,24 +821,6 @@ surroundWithSpace(message) {
     return "   " . message . "   "
 }
 
-
-copySelectedText()
-{
-    ; old_clipboard := clipboardall
-    clipboard =
-    send, ^c
-    ; send, ^{insert}
-    clipwait, 0.5, 1
-
-    if (errorlevel) {
-        tip("copy text failed", -700)
-        return ""
-    }
-
-    r := rtrim(clipboard, "`n")
-    return r
-}
-
 ToggleTopMost()
 {
     winexist("A")
@@ -874,77 +836,6 @@ ToggleTopMost()
     tip(style, -500)
 }
 
-htmlEscape(text) 
-{
-    text := strReplace(text, "&", "&amp;")
-    text := strReplace(text, "<", "&lt;")
-    text := strReplace(text, ">", "&gt;")
-    text := strReplace(text, """", "&quot;")
-    text := strReplace(text, " ", "&nbsp;")
-    return text
-}
-
-class TypoTipWindow
-{
-    __New()
-    {
-
-        text := "               "                       ; 初始化 text control 的宽度
-        fontSize := 12
-        Font_Colour := 0x0 ;0x2879ff
-        Back_Colour := 0xffffe1 ; 0x34495e
-
-        Gui, TYPO_TIP_WINDOW:New, +hwndhGui, ` 
-        this.hwnd := hGui                           ; 保存 hwnd 目前没什么用
-
-        Gui, +Owner +ToolWindow +Disabled -SysMenu -Caption +E0x20 +AlwaysOnTop +Border
-        GUI, Margin, %fontsize%, % fontsize / 5
-        GUI, Color, % Back_Colour
-        GUI, Font, c%Font_Colour% s%fontsize%, Microsoft Sans Serif
-
-        static ControlID                            ; 存储控件 ID,  不同于 Hwnd
-        GUI, Add, Text, vControlID center, %text%
-        GuiControlGet, OutputVar, Hwnd , ControlID  ; 获取 Hwnd
-        this.textHwnd := OutputVar                  ; 保存到对象属性
-
-        Gui, TYPO_TIP_WINDOW:Show, Hide
-    }
-
-    show(text) {
-        GuiControl, Text, % this.textHwnd, %text%
-        MouseGetPos, xpos, ypos 
-        xpos += 10
-        ypos += 7
-        Gui, TYPO_TIP_WINDOW:Show, AutoSize Center NoActivate x%xpos% y%ypos%
-    }
-    
-    hide() {
-        Gui, TYPO_TIP_WINDOW:Show, Hide
-    }
-    
-}
-
-myExit()
-{
-    Menu, Tray, NoIcon 
-    thisPid := DllCall("GetCurrentProcessId")
-    Process, Close, %thisPid%
-}
-
-requireAdmin()
-{
-   if not A_IsAdmin
-   {
-      try {
-         Run *RunAs "MyKeymap.exe" ; 需要 v1.0.92.01+
-         myExit()
-      }
-      catch {
-        tip("MyKeymap 当前以普通权限运行 `n在一些高权限窗口中会完全失效 (比如任务管理器)", -3700)
-      }
-   }
-}
-
 getProcessList(pname)
 {
    result := []
@@ -952,20 +843,6 @@ getProcessList(pname)
       result.push(proc.Handle)
    return result
 }
-
-closeOldInstance()
-{
-
-   thisPid := DllCall("GetCurrentProcessId")
-   for index,pid in getProcessList("MyKeymap.exe")
-   {
-      if (pid != thisPid) {
-         Process, Close, %pid%
-        ;  tip("  Reload  ", -400)
-      }
-   }
-}
-
 
 moveCurrentWindow()
 {
