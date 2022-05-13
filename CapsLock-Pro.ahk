@@ -99,7 +99,7 @@ closeToolTip() {
     ToolTip,
 }
 
-tip(message, time:=-1500) {
+tip(message, time:=-2500) {
     tooltip, %message%
     settimer, closeToolTip, %time%
 }
@@ -727,35 +727,6 @@ arrayContains(arr, target)
     return false
 }
 
-ReloadProgram()
-{
-    Menu, Tray, NoIcon 
-    tooltip, ` ` Reload !` ` 
-    run, MyKeymap.exe
-    ExitApp
-    ;run, "%exeFullPath%" Reload
-    ;process, close, %pid%
-    ;process, close, ahk.exe
-}
-
-slideToShutdown()
-{
-    run, SlideToShutDown
-    sleep, 1300
-    MouseClick, Left, 100, 100
-}
-
-slideToReboot()
-{
-    ; run, SlideToShutDown
-    ; sleep, 1300
-    ; MouseClick, Left, 100, 100
-    ; sleep, 250
-    shutdown, 2
-}
-
-
-
 
 wp_GetMonitorAt(x, y, default=1)
 {
@@ -888,48 +859,6 @@ copySelectedText()
     return r
 }
 
-addHtmlStyle(text, style )
-{
-    text := htmlEscape(text)
-
-    if (instr(text, "`n")) 
-        html = <span style="%style%"><pre>%text%</pre></span>
-    else 
-        html = <span style="%style%">%text%</span>
-
-    return html
-}
-
-
-; modified from jackieku's code (http://www.autohotkey.com/forum/post-310959.html#310959)
-UriEncode(Uri, Enc = "UTF-8")
-{
-	StrPutVar(Uri, Var, Enc)
-	f := A_FormatInteger
-	SetFormat, IntegerFast, H
-	Loop
-	{
-		Code := NumGet(Var, A_Index - 1, "UChar")
-		If (!Code)
-			Break
-		If (Code >= 0x30 && Code <= 0x39 ; 0-9
-			|| Code >= 0x41 && Code <= 0x5A ; A-Z
-			|| Code >= 0x61 && Code <= 0x7A) ; a-z
-			Res .= Chr(Code)
-		Else
-			Res .= "%" . SubStr(Code + 0x100, -1)
-	}
-	SetFormat, IntegerFast, %f%
-	Return, Res
-}
-
-StrPutVar(Str, ByRef Var, Enc = "")
-{
-	Len := StrPut(Str, Enc) * (Enc = "UTF-16" || Enc = "CP1200" ? 2 : 1)
-	VarSetCapacity(Var, Len, 0)
-	Return, StrPut(Str, &Var, Enc)
-}
-
 ToggleTopMost()
 {
     winexist("A")
@@ -954,40 +883,6 @@ htmlEscape(text)
     text := strReplace(text, " ", "&nbsp;")
     return text
 }
-
-setHtml(html)
-{
-    s := "<HTML> <head><meta http-equiv='Content-type' content='text/html;charset=UTF-8'></head> <body> <!--StartFragment-->"
-    s .= html
-    s .= "<!--EndFragment--></body></HTML> "
-    dllcall("clip_dll.dll\setHtml", "Str", s)
-}
-
-setColor(color := "#000000", fontFamily:= "Iosevka") 
-{
-    text := copySelectedText()
-    if (!text) {
-        return
-    }
-
-    style := "color: " color "; font-family: " fontFamily ";"
-    html := addHtmlStyle(text, style)
-    md := "<font color='{{color}}'>{{text}}</font>"
-
-    if (WinActive(" - Typora")) {
-        md := strReplace(md, "{{text}}", text)
-        md := strReplace(md, "{{color}}", color)
-        clipboard := md
-    } else {
-        ; sleep 200
-        setHtml( html )
-        ; sleep 300
-        Sleep, 100
-    }
-
-    send, {LShift down}{Insert down}{Insert up}{LShift up}
-}
-
 
 class TypoTipWindow
 {
@@ -1159,6 +1054,8 @@ CapsLock::Send, {ESC}
 
 ; f5 重载配置
 CapsLock & F5::
+    tip("Reload...")
+    sleep 1000
     reload
 return
 
