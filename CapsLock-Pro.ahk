@@ -707,51 +707,6 @@ exitMouseMode()
     send, {blind}{Lbutton up}
 }
 
-centerMouse() 
-{
-    WingetPos x, y, width, height, A
-    mousemove % x + width/2, y + height/2, 0
-}
-
-lbuttonDown() 
-{
-    send, {Lbutton down}
-}
-
-myDoubleClick()
-{
-    global SLOWMODE
-    send,  {blind}{LButton 2}
-    SLOWMODE := false
-}
-
-myTrippleClick()
-{
-    global SLOWMODE
-    send,  {blind}{LButton 3}
-    SLOWMODE := false
-}
-
-leftClick() 
-{
-    global SLOWMODE
-    send,  {blind}{LButton}
-    SLOWMODE := false
-}
-
-rightClick(tempDisableRButton := false) 
-{
-    global SLOWMODE
-    if (!tempDisableRButton)
-        send,  {blind}{RButton}
-    else {
-        setHotkeyStatus("RButton", false)
-        send,  {blind}{RButton}
-        sleep, 70
-        setHotkeyStatus("RButton", true)
-    }
-    SLOWMODE := false
-}
 
 ShowCommandBar()
 {
@@ -762,7 +717,6 @@ ShowCommandBar()
     ; winshow, __KeyboardGeekCommandBar
     ; winactivate, __KeyboardGeekCommandBar
 }
-
 
 
 arrayContains(arr, target) 
@@ -1118,65 +1072,6 @@ closeOldInstance()
 }
 
 
-openSettings()
-{
-    run, bin\ahk.exe bin\openSettings.ahk
-}
-
-setHotkeyStatus(theHotkey, enableHotkey)
-{
-    global allHotkeys
-    for index,value in allHotkeys
-    {
-        if (value == theHotkey) {
-            if (enableHotkey)
-                hotkey, %theHotkey%, on
-            else
-                hotkey, %theHotkey%, off
-        }
-    }
-}
-
-disableOtherHotkey(thisHotkey)
-{
-    global allHotkeys
-    ; ToolTip, % thisHotkey
-    for index,value in allHotkeys
-    {
-        if (value != thisHotkey) {
-            hotkey, %value%, off
-        }
-    }
-    
-}
-
-enableOtherHotkey(thisHotkey)
-{
-    global allHotkeys
-    ; ToolTip, % thisHotkey
-    for index,value in allHotkeys
-    {
-        if (value != thisHotkey) {
-            hotkey, %value%, on
-        }
-    }
-    
-}
-
-toggleSuspend()
-{
-        Suspend, Toggle
-        if (A_IsSuspended) {
-            Menu, Tray, Check, 暂停
-            tip("  暂停 MyKeymap  ", -500)
-        }
-        else {
-            Menu, Tray, UnCheck, 暂停
-            tip("  恢复 MyKeymap  ", -500)
-        }
-}
-
-
 moveCurrentWindow()
 {
     PostMessage, 0x0112, 0xF010, 0,, A
@@ -1194,62 +1089,6 @@ toggleAutoHideTaskBar()
  , DllCall("Shell32\SHAppBarMessage", "UInt", 10 ; ABM_SETSTATE
                                     , "Ptr", &APPBARDATA)
 }
-
-restartExplorer()
-{
-    run, tools\Rexplorer_x64.exe
-}
-
-toggleRemoveTaskBar()
-{
-    ; 下面的软件能完全移除 TaskBar 但个人偏好「 自动隐藏任务栏 」
-    global HIDE_TASK_BAR
-    HIDE_TASK_BAR := !HIDE_TASK_BAR
-    if (HIDE_TASK_BAR) {
-        runwait, tools\TaskBarHider.exe -hide -exit
-        run, tools\TaskBarHider.exe -hide -exit
-    }
-    else {
-        run, tools\TaskBarHider.exe -show -exit
-    }
-}
-
-
-enterJModeK()
-{
-    global
-    JModeK := true
-    keywait k
-    JModeK := false
-}
-
-actionAddSpaceBetweenEnglishChinese()
-{
-    text := copySelectedText()
-    if (!text) {
-        return
-    }
-
-    clipboard := addSpaceBetweenEnglishChinese(text)
-    send, {LShift down}{Insert down}{Insert up}{LShift up}
-}
-
-addSpaceBetweenEnglishChinese(str) {
-    ; 参考 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions/Assertions
-
-    ; 前面加空格,  使用 look behind,  当英文在非英文之后时匹配
-    regexp := "(?<=[^ -~])([!-~]+)"
-    replacement := " $1"
-    str := RegExReplace(str, regexp, replacement)
-    ; 后面加空格, 使用 look ahead,  当英文在非英文之前时匹配
-    regexp := "([!-~]+)(?=[^ -~])"
-    replacement := "$1 "
-    str := RegExReplace(str, regexp, replacement)
-    ; 去除两端空格
-    ; return Trim(str)
-    return str
-}
-
 
 
 ; 参考 => https://www.autohotkey.com/boards/viewtopic.php?p=255256#p255256
@@ -1297,43 +1136,12 @@ Explorer_GetSelection()
 }
 
 
-setCommandInputHwnd(hwnd)
-{
-    global commandInputHwnd
-    commandInputHwnd := hwnd
-}
-
-postCharToTipWidnow(char) {
-    global commandInputHwnd
-    oldValue := A_DetectHiddenWindows
-    DetectHiddenWindows, 1
-    ; if WinExist("ahk_class MyKeymap_Command_Input")
-    ;     PostMessage, 0x0102, Ord(char), 0
-    PostMessage, 0x0102, Ord(char), 0,, ahk_id %commandInputHwnd%
-    DetectHiddenWindows, %oldValue%
-}
-
-postMessageToTipWidnow(messageType) {
-    global commandInputHwnd
-    oldValue := A_DetectHiddenWindows
-    DetectHiddenWindows, 1
-    ; if WinExist("ahk_class MyKeymap_Command_Input")
-    ;     PostMessage, %messageType%, 0, 0
-    PostMessage, %messageType%, 0, 0,, ahk_id %commandInputHwnd%
-    DetectHiddenWindows, %oldValue%
-}
-     
-
-SystemLockScreen()
-{
-    sleep 300
-    DllCall("LockWorkStation")
-}
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;                                                                                    以下是按键定义                                                                      ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 CapsLock & p::
     ActivateOrRun("blog [WSL: Ubuntu] - Visual Studio Code", "wsl.exe", "bash -c ""cd $HOME/code/blog && code .""", "")
+    ; ActivateOrRun("窗口标识符", "程序路径/文件夹/url", "命令行参数", "工作目录")
 return
 
 CapsLock & `::
