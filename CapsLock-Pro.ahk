@@ -105,11 +105,6 @@ tip(message, time:=-2500) {
 }
 
 
-!F22::
-    ActivateOrRun2(run_to_activate, run_target, run_args, run_workingdir)
-    ; tip(A_TickCount - run_start)
-    Return
-
 ;无视输入法中英文状态发送中英文字符串
 ;原理是, 发送英文时, 把它当做字符串来发送, 就像发送中文一样
 ;不通过模拟按键来发送,  而是发送它的Unicode编码
@@ -272,7 +267,7 @@ ActivateOrRun(to_activate:="", target:="", args:="", workingdir:="", RunAsAdmin:
     run_target := target
     run_args := args
     run_workingdir := workingdir
-    send, !{F22}
+    ActivateOrRun2(run_to_activate, run_target, run_args, run_workingdir)
 }
 
 ActivateOrRun2(to_activate:="", target:="", args:="", workingdir:="", RunAsAdmin:=false) 
