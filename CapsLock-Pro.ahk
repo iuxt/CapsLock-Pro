@@ -932,7 +932,8 @@ CapsLock & F5::
 return
 
 
-; ^!t::Run wt.exe
+^!t::Run wt.exe
+
 CapsLock & q::
     winMaximizeIgnoreDesktop()
 return
