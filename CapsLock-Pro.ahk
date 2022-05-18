@@ -932,7 +932,9 @@ CapsLock & F5::
 return
 
 
-^!t::Run wt.exe
+^!t::
+    ActivateOrRun("ahk_exe WindowsTerminal.exe", "wt.exe", "", "")
+return
 
 CapsLock & q::
     winMaximizeIgnoreDesktop()
