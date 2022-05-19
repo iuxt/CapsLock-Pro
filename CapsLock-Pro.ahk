@@ -906,11 +906,14 @@ Explorer_GetSelection()
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;                                                                                    以下是按键定义                                                                      ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; vscode打开博客代码
 CapsLock & p::
     ActivateOrRun("blog [WSL: Ubuntu] - Visual Studio Code", "wsl.exe", "bash -c ""cd $HOME/code/blog && code .""", "")
     ; ActivateOrRun("窗口标识符", "程序路径/文件夹/url", "命令行参数", "工作目录")
 return
 
+; 切换大小写
 CapsLock & `::
 GetKeyState, CapsLockState, CapsLock, T
 if CapsLockState = D
@@ -920,7 +923,7 @@ else
 KeyWait, ``
 return
 
-
+; 短按CapsLock发送三ESC
 CapsLock::Send, {ESC}
 
 
@@ -931,19 +934,22 @@ CapsLock & F5::
     reload
 return
 
-
+; ctrl alt t 打开终端
 ^!t::
     ActivateOrRun("ahk_exe WindowsTerminal.exe", "wt.exe", "", "")
 return
 
+; 最大化窗口
 CapsLock & q::
     winMaximizeIgnoreDesktop()
 return
 
+; 当前窗口调成1366x768
 CapsLock & a::
     center_window_to_current_monitor(1366, 768)
 return
 
+; 向左选择
 CapsLock & h::
 if GetKeyState("alt") = 0
     Send, {Left}
@@ -975,7 +981,7 @@ else
     Send, +{Right}
 return
 
-
+; 换行
 CapsLock & o::
 if GetKeyState("alt") = 0 {
     Send, {End}{Enter}
@@ -983,31 +989,6 @@ if GetKeyState("alt") = 0 {
     Send, {Home}{Enter}{Up}
 }
 return
-
-
-CapsLock & u::
-if GetKeyState("alt") = 0 {
-    Send, {Home}
-} Else {
-    Send, ^{Home}
-}
-return
-
-
-CapsLock & i::
-if GetKeyState("alt") = 0 {
-    Send, {End}
-} Else {
-    Send, ^{End}
-}
-return
-
-
-CapsLock & ,:: Send, {Del}
-CapsLock & .:: Send, ^{Del}
-CapsLock & m:: Send, {BS}
-CapsLock & n:: Send, ^{BS}
-
 
 CapsLock & x:: Send, ^x
 CapsLock & c:: Send, ^{insert}
@@ -1018,6 +999,10 @@ CapsLock & w::
     SmartCloseWindow()
 return
 
+; 将当前窗口发送到右边显示器
+CapsLock & d::
+    Send, #+{Right}
+return
 
 CapsLock & e:: Run http://cn.bing.com/
 CapsLock & r:: Run Powershell
