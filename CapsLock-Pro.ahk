@@ -908,7 +908,7 @@ Explorer_GetSelection()
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; vscode打开博客代码
-CapsLock & p::
+CapsLock & 0::
     ActivateOrRun("blog [WSL: Ubuntu] - Visual Studio Code", "wsl.exe", "bash -c ""cd $HOME/code/blog && code .""", "")
     ; ActivateOrRun("窗口标识符", "程序路径/文件夹/url", "命令行参数", "工作目录")
 return
@@ -1016,5 +1016,4 @@ CapsLock & 6:: Send,+6
 CapsLock & 7:: Send,+7
 CapsLock & 8:: Send,+8
 CapsLock & 9:: Send,+9
-CapsLock & 0:: Send,+0
 
