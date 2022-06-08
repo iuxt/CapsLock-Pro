@@ -981,6 +981,14 @@ else
     Send, +{Right}
 return
 
+CapsLock & u::
+    Send, {Home}
+return
+
+CapsLock & i::
+    Send, {End}
+return
+
 ; 换行
 CapsLock & o::
 if GetKeyState("alt") = 0 {
