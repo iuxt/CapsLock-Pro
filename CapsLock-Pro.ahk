@@ -56,9 +56,7 @@ https://autohotkey.com/boards/viewtopic.php?t=4334
 ShellRun(prms*)
 {
     MakeExplorerForegroundProcess()
-
     try {
-
         shellWindows := ComObjCreate("Shell.Application").Windows
         VarSetCapacity(_hwnd, 4, 0)
         desktop := shellWindows.FindWindowSW(0, "", 8, ComObj(0x4003, &_hwnd), 1)
@@ -185,10 +183,9 @@ GetVisibleWindows(winFilter)
         if (WinVisible(id%A_Index%))
             ids.push(id%A_Index%)
     }
-
+    
     if (ids.length() == 0)
     {
-
         pos := Instr(winFilter, "ahk_exe") - StrLen(winFilter) + StrLen("ahk_exe")
         pname := Trim(Substr(winFilter, pos))
         WinGet, id, list, ahk_class ApplicationFrameWindow
@@ -198,7 +195,6 @@ GetVisibleWindows(winFilter)
             if (get_name== pname)
                 ids.push(id%A_index%)
         }
-
     }
     return ids
 }
@@ -923,8 +919,8 @@ else
 KeyWait, ``
 return
 
-; 短按CapsLock发送三ESC
-CapsLock::Send, {ESC}
+; 短按CapsLock发送ESC
+; CapsLock::Send, {ESC}
 
 
 ; f5 重载配置
@@ -998,8 +994,8 @@ if GetKeyState("alt") = 0 {
 }
 return
 
-CapsLock & x:: Send, ^x
-CapsLock & c:: Send, ^{insert}
+CapsLock & x:: Send, {Home}+{End}^x
+CapsLock & c:: Send, {Home}+{End}^{insert}
 CapsLock & v:: Send, +{insert}
 
 ; 关闭程序
@@ -1007,12 +1003,11 @@ CapsLock & w::
     SmartCloseWindow()
 return
 
-; 将当前窗口发送到右边显示器
-CapsLock & d::
-    Send, #+{Right}
-return
+; 移动窗口到另一个显示器
+CapsLock & d:: Send, #+{Right}
 
-CapsLock & e:: Run http://cn.bing.com/
+; 在我的博客搜索
+CapsLock & e:: Run "https://cn.bing.com/search?q=site:zahui.fan"
 CapsLock & r:: Run Powershell
 
 CapsLock & 1:: Send,+1
