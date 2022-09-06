@@ -1006,7 +1006,7 @@ return
 ; 移动窗口到另一个显示器
 CapsLock & d::
     Send, #+{Right}
-Returns
+Return
 
 ; 删除一整行
 CapsLock & BackSpace:: 
