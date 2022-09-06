@@ -1004,10 +1004,19 @@ CapsLock & w::
 return
 
 ; 移动窗口到另一个显示器
-CapsLock & d:: Send, #+{Right}
+CapsLock & d::
+    Send, #+{Right}
+Returns
+
+; 删除一整行
+CapsLock & BackSpace:: 
+    Send, {Home}+{End}
+    Send, {Del}
+Return
+
 
 ; 在我的博客搜索
-CapsLock & e:: Run "https://cn.bing.com/search?q=site:zahui.fan"
+CapsLock & s:: Run "https://cn.bing.com/search?q=site:zahui.fan"
 CapsLock & r:: Run Powershell
 
 CapsLock & 1:: Send,+1
