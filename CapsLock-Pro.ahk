@@ -940,6 +940,11 @@ CapsLock & q::
     winMaximizeIgnoreDesktop()
 return
 
+; 最小化窗口
+CapsLock & z::
+    winMinimizeIgnoreDesktop()
+Return
+
 ; 当前窗口调成1366x768
 CapsLock & a::
     center_window_to_current_monitor(1366, 768)
@@ -1028,4 +1033,3 @@ CapsLock & 6:: Send,+6
 CapsLock & 7:: Send,+7
 CapsLock & 8:: Send,+8
 CapsLock & 9:: Send,+9
-
