@@ -1,0 +1,1 @@
+SCHTASKS /Create /SC ONLOGON /TN CapsLock-Pro /TR "C:\Users\iuxt\OneDrive\1\CapsLock-Pro\CapsLock-Pro.ahk" /RL HIGHEST
