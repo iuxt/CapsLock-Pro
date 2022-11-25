@@ -6,18 +6,18 @@
 ; | +  |   Shift           |
 
 ; If the script is not elevated, relaunch as administrator and kill current instance:
-full_command_line := DllCall("GetCommandLine", "str")
-if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
-{
-    try ; leads to having the script re-launching itself as administrator
-    {
-        if A_IsCompiled
-            Run *RunAs "%A_ScriptFullPath%" /restart
-        else
-            Run *RunAs "%A_AhkPath%" /restart "%A_ScriptFullPath%"
-    }
-    ExitApp
-}
+; full_command_line := DllCall("GetCommandLine", "str")
+; if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
+; {
+;     try ; leads to having the script re-launching itself as administrator
+;     {
+;         if A_IsCompiled
+;             Run *RunAs "%A_ScriptFullPath%" /restart
+;         else
+;             Run *RunAs "%A_AhkPath%" /restart "%A_ScriptFullPath%"
+;     }
+;     ExitApp
+; }
 
 
 #SingleInstance force
@@ -905,7 +905,7 @@ Explorer_GetSelection()
 
 ; vscode打开博客代码
 CapsLock & 0::
-    ActivateOrRun("blog [WSL: Ubuntu] - Visual Studio Code", "wsl.exe", "bash -c ""cd $HOME/code/blog && code .""", "")
+    ActivateOrRun("zahuifan [WSL: Ubuntu] - Visual Studio Code", "wsl.exe", "bash -c ""cd $HOME/code/zahuifan && code .""", "")
     ; ActivateOrRun("窗口标识符", "程序路径/文件夹/url", "命令行参数", "工作目录")
 return
 
