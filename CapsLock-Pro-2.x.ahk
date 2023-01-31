@@ -21,19 +21,22 @@ Capslock & Esc::{
         SetCapsLockState "AlwaysOn"
 }
 
+; 使用windows terminal
+CapsLock & t::
+{
+    if WinExist("ahk_exe WindowsTerminal.exe")
+        WinActivate
+    else
+        Run "wt.exe"
+}
 
-; #n::
-; {
-;     if WinExist("ahk_class Notepad")
-;         WinActivate  ; Activate the window found above
-;     else
-;         Run "notepad"  ; Open a new Notepad window
-; }
-
-; 向左选择
+; 方向
 CapsLock & h:: Left
 CapsLock & l:: Right
 CapsLock & j:: Down
 CapsLock & k:: up
 
-
+; 切换到另一个显示器
+CapsLock & d:: {
+    Send "#+{Left}"
+}
