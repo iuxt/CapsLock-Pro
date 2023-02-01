@@ -22,8 +22,6 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
     ExitApp
 }
 
-MsgBox "A_IsAdmin: " A_IsAdmin "`nCommand line: " full_command_line
-
 ; 短按CapsLock发送ESC
 CapsLock:: ESC
 
