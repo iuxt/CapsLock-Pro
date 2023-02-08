@@ -75,3 +75,6 @@ CapsLock & i:: {
 CapsLock & d:: {
     Send "#+{Left}"
 }
+
+; bing搜索博客
+CapsLock & s:: Run "https://cn.bing.com/search?q=site:zahui.fan"
