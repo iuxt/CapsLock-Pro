@@ -7,6 +7,7 @@
 
 
 #SingleInstance force
+SetCapsLockState "AlwaysOff"
 
 full_command_line := DllCall("GetCommandLine", "str")
 
@@ -25,6 +26,17 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
 ; 短按CapsLock发送ESC
 CapsLock:: ESC
 
+tip(message, time:=-5000) {
+    ToolTip message
+    SetTimer () => ToolTip(), time
+}
+
+; f5 重载配置
+CapsLock & F5:: {
+    tip("Reload...")
+    sleep 1500
+    reload
+}
 
 SetCapsLockState "AlwaysOff"
 ; 使用capslock+esc切换大写锁定
