@@ -63,6 +63,14 @@ CapsLock & l:: Right
 CapsLock & j:: Down
 CapsLock & k:: up
 
+CapsLock & u:: {
+    Send "{Home}"
+}
+
+CapsLock & i:: {
+    Send "{End}"
+}
+
 ; 切换到另一个显示器
 CapsLock & d:: {
     Send "#+{Left}"
