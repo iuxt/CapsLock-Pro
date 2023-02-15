@@ -71,6 +71,12 @@ CapsLock & i:: {
     Send "{End}"
 }
 
+; 新建一行，光标移到下一行
+CapsLock & o:: {
+    Send "{End}"
+    Send "{Enter}"
+}
+
 ; 切换到另一个显示器
 CapsLock & d:: {
     Send "#+{Left}"
