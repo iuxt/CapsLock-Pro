@@ -38,7 +38,6 @@ CapsLock & F5:: {
     reload
 }
 
-SetCapsLockState "AlwaysOff"
 ; 使用capslock+esc切换大写锁定
 ; 废除capslock直接切换大小写锁定的功能
 Capslock & Esc::{
@@ -46,6 +45,7 @@ Capslock & Esc::{
         SetCapsLockState "AlwaysOff"
     Else 
         SetCapsLockState "AlwaysOn"
+    KeyWait "Esc"
 }
 
 ; 使用windows terminal
