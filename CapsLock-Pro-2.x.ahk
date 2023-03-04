@@ -23,8 +23,6 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
     ExitApp
 }
 
-; 短按CapsLock发送ESC
-CapsLock:: ESC
 
 tip(message, time:=-5000) {
     ToolTip message
