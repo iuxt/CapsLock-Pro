@@ -52,7 +52,7 @@ CapsLock & t::
     if WinExist("ahk_exe WindowsTerminal.exe")
         WinActivate
     else
-        Run "wt.exe"
+        Run "runas /trustlevel:0x20000 wt.exe"
 }
 
 ; 方向
