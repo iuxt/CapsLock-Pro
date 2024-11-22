@@ -33,8 +33,8 @@ tip(message, time := 5000) { ; 默认显示 5 秒
 
 ; f5 重载配置
 CapsLock & F5:: {
-    tip("Reload...")
-    Sleep 3000
+    tip("重载配置中...")
+    Sleep 1000
     reload
 }
 
@@ -82,3 +82,16 @@ CapsLock & d:: {
 
 ; bing搜索博客
 CapsLock & s:: Run "https://cn.bing.com/search?q=site:zahui.fan"
+
+CapsLock & f::  ; 按下 Ctrl+F 最大化当前激活窗口
+{
+    activeWindow := WinGetID("A")  ; 获取当前激活窗口的句柄
+    if (activeWindow)  ; 如果成功获取到窗口句柄
+    {
+        WinMaximize(activeWindow)  ; 最大化窗口
+    }
+    else
+    {
+        MsgBox("未找到当前激活的窗口。")
+    }
+}
