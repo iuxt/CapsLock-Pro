@@ -52,7 +52,7 @@ CapsLock & t::
     if WinExist("ahk_exe WindowsTerminal.exe")
         WinActivate
     else
-        Run "wt.exe"
+        Run "C:\\Users\\iuxt\\OneDrive\\bin\\terminal.bat"
 }
 
 ; 方向
