@@ -2,3 +2,8 @@
 
 
 macOS 参考 https://github.com/lianginx/capslock-yes
+
+
+macOS 导入：
+<karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/iuxt/CapsLock-Pro/master/Karabiner-Elements.json>
+
