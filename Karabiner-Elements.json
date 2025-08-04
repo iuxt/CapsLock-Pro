@@ -1,8 +1,8 @@
 {
-  "title": "CapsLock YES!",
-  "maintainers": ["lianginx"],
-  "homepage": "https://github.com/lianginx/capslock-yes",
-  "import_url": "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/lianginx/capslock-yes/master/capslock-yes.json",
+  "title": "CapsLock Pro!",
+  "maintainers": ["iuxt"],
+  "homepage": "https://github.com/iuxt/CapsLock-Pro",
+  "import_url": "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/iuxt/CapsLock-Pro/master/Karabiner-Elements.json",
   "rules": [
     {
       "description": "caps_lock to command+control+option+shift.",
