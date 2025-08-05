@@ -4,7 +4,7 @@
     "iuxt"
   ],
   "homepage": "https://github.com/iuxt/CapsLock-Pro",
-  "import_url": "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/iuxt/CapsLock-Pro/master/Karabiner-Elements.json",
+  "import_url": "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/iuxt/CapsLock-Pro/refs/heads/master/Karabiner-Elements.json",
   "rules": [
     {
         "description": "caps_lock to command+control+option+shift.",
